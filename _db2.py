@@ -12,24 +12,33 @@ def clr(text):
 
 if __name__ == '__main__':
     
-    login = "test@test.com" # from
-    passw = "password"
-    to = "test@test.com"
-    smtp_server = "smtp.test.com"
-    smtp_port = 465
+    login = "test@test.com" # from FIX ME
+    passw = "password" #  FIX ME
+    to = "test@test.com" #  FIX ME
+    smtp_server = "smtp.test.com" #  FIX ME
+    smtp_port = 465 #  FIX ME
 
     try:
         driver = webdriver.Chrome()
         driver.get("https://meine.deutsche-bank.de/trxm/db/")
         time.sleep(1)
         element1 = driver.find_element_by_name("branch")
-        element1.send_keys("123")
+        element1.send_keys("123") #  FIX ME
         element2 = driver.find_element_by_name("account")
-        element2.send_keys("1234567")
+        element2.send_keys("1234567") #  FIX ME
         element3 = driver.find_element_by_name("pin")
-        element3.send_keys("12345")
+        element3.send_keys("12345") #  FIX ME
         element4 = driver.find_element_by_name("loginType")
         element4.click()
+
+        # окно запроса включения двухфакторной авторизации
+        i = 0
+        while not driver.page_source.find('Nicht aktivieren und'):
+            i += 1
+            time.sleep(1)
+            if i == 10: break
+        driver.find_element_by_name('method').click()
+
         i = 0
         while not driver.page_source.find('Umsatzanzeige'):
             i += 1
